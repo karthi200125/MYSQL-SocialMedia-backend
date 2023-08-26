@@ -1,3 +1,4 @@
+
 $themes: (
   light: (
     textColor: #000,
@@ -6,6 +7,7 @@ $themes: (
     bgSoft: #f6f3f3,
     textColorSoft: #555,
     border: lightgray,
+    moon:blue,
   ),
   dark: (
     textColor: whitesmoke,
@@ -14,6 +16,7 @@ $themes: (
     bgSoft: #333,
     textColorSoft: lightgray,
     border: #444,
+    sun:yellow,
   ),
 );
 
@@ -49,4 +52,8 @@ $themes: (
   @media (max-width: 960px) {
     @content;
   }
+}
+
+*{
+  margin: 0;
 }

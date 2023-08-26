@@ -6,15 +6,20 @@
 height: 100vh;
 margin-top: -15px;
 padding: 20px;
-    .search {        
-        margin-top: 40px;        
+
+
+    .search-box{        
+          margin-top: 40px;        
           display: flex;
           align-items: center;
           gap: 20px;
+          width: 53%;
           border: 1px solid themed("textColor");
+          background-color: themed("bgSoft");
           border-radius: 5px;
           padding: 10px;
-      
+          position: fixed;
+          top: 8%;                          
           .icon{
             color: themed("textColor");
           }
@@ -37,32 +42,37 @@ padding: 20px;
               outline: none;
             }
         }
-      }
-      .search-content{
-        margin-top: 30px;
+      
+      .search-users{
+        margin-top: 100px;
         display: flex;        
         flex-direction: column;
-        gap: 20px;
-        align-items: center;
+        gap: 5px;
         justify-content: center;
+        
+        
+        
 
-       .item{
+       .suser{
          display: flex;
          cursor: pointer;
-         gap: 40px;
-         border: 2px solid greenyellow;         
-         width: 50%;
-         padding: 15px;
+         gap: 40px;         
+         width: 95%;         
+         padding: 10px;
          border-radius: 10px;
 
-         .userInfo{
+         .suserInfo{
           display: flex;
           justify-content: center;
           align-items: center;
-          gap: 30px;
-          color: greenyellow;
-          
-          
+          gap: 30px;          
+          .personicon{
+            color: themed("textColor")
+          }
+          span{
+            color: themed("textColor");
+            font-size: 20px;
+          }
           img{
             width: 40px;
             height: 40px;
@@ -74,17 +84,23 @@ padding: 20px;
 
         
        }
+       .suser:hover{
+        background-color: themed("textColor");                
+       }
+       .suser:hover span{
+        color:themed("bgSoft");
+       }
        .item:hover{
         background-color: greenyellow;
         transition: 0.5s;
         transform: scale(1.1);        
        }
-       .item:hover .userInfo span{
+       .item:hover .suserInfo span{
         color: black;
         font-size: 20px;
         font-weight: 500;
        }
         
       }
-    
+    }   
 }

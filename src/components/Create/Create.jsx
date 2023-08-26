@@ -1,4 +1,4 @@
-import './Create.scss'
+import './Crate.scss'
 import Image from "../../assets/img.png";
 import Map from "../../assets/map.png";
 import Friend from "../../assets/friend.png";
@@ -50,17 +50,16 @@ const Create = () => {
 
   return (
     <div className="share-container" >
-
+ <h1>CREATE YOUR POST</h1>
 <div className="share">
       <div className="container">
         <div className="top">
           <div className="left">
-           <div className="user">
-           <img src={"/upload/" + currentUser.profilePic} alt="" />
+           <div className="user">           
             <h1>{currentUser.name}</h1>
            </div>
             
-            <input
+            <textarea
               type="text"
               placeholder={`What's on your mind ${currentUser.name}?`}
               onChange={(e) => setDesc(e.target.value)}

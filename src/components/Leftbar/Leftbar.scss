@@ -1,0 +1,98 @@
+@import "../../style.scss";
+
+.leftbar { // Use lower case for class names
+  @include themify($themes) {
+    flex: 1.8;
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    overflow: scroll;
+    background-color: themed("bg");
+    color: themed("textColor");
+
+    @include mobile {
+      display: block;
+      margin-left: -15px;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .container {
+      padding: 20px;
+
+      hr {
+        margin: 20px 0px;
+        border: none;
+        height: 0.5px;
+        background-color: themed("border");
+      }
+
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+
+        .linkk {
+          text-decoration: none;
+          color: themed("textColor");
+        }
+
+        span {
+          font-size: 20px;
+          font-weight: 500;
+        }
+
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          border-radius: 10px;
+          padding: 10px;
+
+          @include mobile {
+            padding: 10px;
+            margin-right: -15px;
+          }
+
+          img {
+            width: 30px;
+          }
+
+          span {
+            font-size: 20px;
+            @include mobile {
+              display: none;
+            }
+          }
+
+          .icon {
+            font-size: 30px;
+            color: themed("textColor");
+          }
+
+          &:hover {
+            background-color: themed("textColor");
+            color: themed("bg");
+
+            .icon {
+              transform: scale(1.1);
+              color: themed("bg");
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.leftbar:hover {
+  @include themify($themes) {
+    &::-webkit-scrollbar-thumb {
+      background-color: gray;
+    }
+  }
+}

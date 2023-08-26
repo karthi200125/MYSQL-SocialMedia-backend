@@ -1,41 +1,64 @@
-import { makeRequest } from "../../axios";
-import { useQuery } from "@tanstack/react-query";
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Search.scss';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import axios from "axios";
+import { AiOutlineSearch } from 'react-icons/ai';
+import { AuthContext } from '../../context/authcontext';
+import { Link } from 'react-router-dom';
+import {BsPersonCircle} from 'react-icons/bs'
 
-const Search = ({ userId }) => {
-  const { isLoading, error, data } = useQuery(["posts"], () =>
-    makeRequest.get(`/users?userId=${userId}`)
-      .then((res) => res.data)
-  );
+const Search = () => {
+  const [allusers, setAllUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [query, setQuery] = useState("");
 
-  if (isLoading) {
-    return <span>Loading...</span>;
-  }
+  const {currentUser}=useContext(AuthContext)
+  
 
-  if (error) {
-    return <span>Something went wrong!</span>;
-  }
+  useEffect(() => {
+    const getAllUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:8800/api/searchusers/allusers');
+        setAllUsers(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAllUsers();
+  }, []);
 
-  const uniquePosts = Array.from(new Set(data.map((post) => post.userId)))
-    .map((userId) => data.find((post) => post.userId === userId))
-    .filter(Boolean);
+  useEffect(() => {
+    const filtered = allusers.filter(user =>
+      user.username.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredUsers(filtered);
+  }, [query, allusers]);
+
+  
 
   return (
     <div className="searchs">
-      <div className="search">
-        <SearchOutlinedIcon className="icon" />
-        <input type="text" placeholder="Search..." />
+      <div className="search-box">
+        <AiOutlineSearch className="icon" />
+        <input
+          type="text"
+          placeholder="Search by username..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </div>
-      <div className="search-content">
-        {uniquePosts.map((post) => (
-          <div className="item" key={post.userId}>
-            <div className="userInfo">
-              <img src={`/upload/${post.profilePic}`} alt="" />
-              <span>{post.name}</span>
-            </div>        
+      <div className="search-users">
+        {filteredUsers.map((user) => (
+          <Link style={{textDecoration:'none'}}className="username" to={`/profile/${user.id}`}>
+          <div className="suser" key={user.id}>
+            <div className="suserInfo">
+              {!user.profilePic ?
+              <BsPersonCircle className='personicon'size={40}/>
+              :<img src={"/upload/"+user.profilePic} alt="" />
+            }
+              <span>{user.username}</span>
+            </div>
           </div>
+          </Link>
         ))}
       </div>
     </div>
